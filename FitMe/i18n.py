@@ -21,6 +21,10 @@ _LANGUAGES = {
     "PortugueseBrazilianLanguage": "pt-BR",
     "ChinesePRCLanguage": "zh-CN",
     "TurkishLanguage": "tr",
+    "ChineseTaiwanLanguage": "zh-TW",
+    "CzechLanguage": "cs",
+    "HungarianLanguage": "hu",
+    "RussianLanguage": "ru",
 }
 
 

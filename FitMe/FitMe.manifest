@@ -5,7 +5,20 @@
 	"description":	{
 		"": "Find assembly candidates between two components and create a joint",
 		"1033": "Find assembly candidates between two components and create a joint",
-		"1041": "2つのコンポーネントの組付け候補を表示し、ジョイントを作成します"
+		"1041": "2つのコンポーネントの組付け候補を表示し、ジョイントを作成します",
+		"1031": "Montagekandidaten zwischen zwei Komponenten finden und eine Verbindung erstellen",
+		"1034": "Busca candidatos de ensamblaje entre dos componentes y crea una unión",
+		"1036": "Rechercher des candidats d'assemblage entre deux composants et créer une liaison",
+		"1040": "Trova i candidati di assieme tra due componenti e crea un giunto",
+		"1042": "두 구성요소 간의 조립 후보를 찾아 조인트를 작성합니다",
+		"1045": "Znajduje kandydatów złożenia między dwoma komponentami i tworzy połączenie",
+		"1046": "Encontra candidatos de montagem entre dois componentes e cria uma junta",
+		"2052": "查找两个零部件之间的装配候选项并创建联接",
+		"1028": "尋找兩個元件之間的組裝候選項並建立接頭",
+		"1029": "Vyhledá kandidáty sestavení mezi dvěma komponentami a vytvoří kloub",
+		"1038": "Összeszerelési jelölteket keres két komponens között, és csuklót hoz létre",
+		"1049": "Поиск вариантов сборки двух компонентов и создание соединения",
+		"1055": "İki bileşen arasındaki montaj adaylarını bulur ve bir birleşim oluşturur"
 	},
 	"version":	"0.0.1",
 	"runOnStartup":	true,
