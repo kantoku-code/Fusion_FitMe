@@ -1,0 +1,15 @@
+{
+	"autodeskProduct":	"Fusion",
+	"type":	"addin",
+	"author":	"kantoku",
+	"description":	{
+		"": "Find assembly candidates between two components and create a joint",
+		"1033": "Find assembly candidates between two components and create a joint",
+		"1041": "2つのコンポーネントの組付け候補を表示し、ジョイントを作成します"
+	},
+	"version":	"0.0.1",
+	"runOnStartup":	true,
+	"supportedOS":	"windows|mac",
+	"editEnabled":	true,
+	"iconFilename":	"AddInIcon.svg"
+}
