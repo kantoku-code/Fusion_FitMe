@@ -40,6 +40,8 @@
     "anim_failed": "FitMe animation failed:\n{details}",
     "joint_geometry_failed": "FitMe joint geometry creation failed:\n{details}",
     "interference_failed": "FitMe interference check failed:\n{details}",
+    "joint_exists_confirm": "The selected parts are already joined:\n{names}\n\nDelete the existing joints and replace them with the new joint?",
+    "joint_replace_cancelled": "Joint replacement was canceled.",
     "panel_missing": "Fusion assemble panel was not found."
   },
   "ja": {
@@ -83,6 +85,8 @@
     "anim_failed": "アニメーション失敗:\n{details}",
     "joint_geometry_failed": "Jointジオメトリ作成失敗:\n{details}",
     "interference_failed": "干渉チェック失敗:\n{details}",
+    "joint_exists_confirm": "選択した部品間には既にジョイントがあります:\n{names}\n\n既存のジョイントを削除して新しいジョイントに置き換えますか？",
+    "joint_replace_cancelled": "ジョイントの置き換えを取り消しました。",
     "panel_missing": "組み立てパネルが見つかりません。"
   },
   "de": {
@@ -126,6 +130,8 @@
     "anim_failed": "FitMe-Animation fehlgeschlagen:\n{details}",
     "joint_geometry_failed": "FitMe: Erstellen der Verbindungsgeometrie fehlgeschlagen:\n{details}",
     "interference_failed": "FitMe: Überschneidungsprüfung fehlgeschlagen:\n{details}",
+    "joint_exists_confirm": "Die ausgewählten Bauteile sind bereits verbunden:\n{names}\n\nVorhandene Verbindungen löschen und durch die neue Verbindung ersetzen?",
+    "joint_replace_cancelled": "Das Ersetzen der Verbindung wurde abgebrochen.",
     "panel_missing": "Die Fusion-Gruppe Zusammenfügen wurde nicht gefunden."
   },
   "es": {
@@ -169,6 +175,8 @@
     "anim_failed": "Error en la animación de FitMe:\n{details}",
     "joint_geometry_failed": "Error al crear la geometría de unión de FitMe:\n{details}",
     "interference_failed": "Error en la comprobación de interferencias de FitMe:\n{details}",
+    "joint_exists_confirm": "Las piezas seleccionadas ya están unidas:\n{names}\n\n¿Desea eliminar las uniones existentes y reemplazarlas por la nueva unión?",
+    "joint_replace_cancelled": "Se canceló el reemplazo de la unión.",
     "panel_missing": "No se ha encontrado el panel Ensamblar de Fusion."
   },
   "fr": {
@@ -212,6 +220,8 @@
     "anim_failed": "Échec de l'animation de FitMe :\n{details}",
     "joint_geometry_failed": "Échec de la création de la géométrie de liaison FitMe :\n{details}",
     "interference_failed": "Échec de la vérification d'interférence FitMe :\n{details}",
+    "joint_exists_confirm": "Les pièces sélectionnées sont déjà liées :\n{names}\n\nSupprimer les liaisons existantes et les remplacer par la nouvelle liaison ?",
+    "joint_replace_cancelled": "Le remplacement de la liaison a été annulé.",
     "panel_missing": "Le groupe de fonctions Assembler de Fusion est introuvable."
   },
   "it": {
@@ -255,6 +265,8 @@
     "anim_failed": "Animazione di FitMe non riuscita:\n{details}",
     "joint_geometry_failed": "Creazione della geometria del giunto FitMe non riuscita:\n{details}",
     "interference_failed": "Verifica delle interferenze FitMe non riuscita:\n{details}",
+    "joint_exists_confirm": "Le parti selezionate sono già collegate:\n{names}\n\nEliminare i giunti esistenti e sostituirli con il nuovo giunto?",
+    "joint_replace_cancelled": "La sostituzione del giunto è stata annullata.",
     "panel_missing": "Il gruppo Assieme di Fusion non è stato trovato."
   },
   "ko": {
@@ -298,6 +310,8 @@
     "anim_failed": "FitMe 애니메이션 실패:\n{details}",
     "joint_geometry_failed": "FitMe 조인트 형상 작성 실패:\n{details}",
     "interference_failed": "FitMe 간섭 검사 실패:\n{details}",
+    "joint_exists_confirm": "선택한 부품 사이에 이미 조인트가 있습니다:\n{names}\n\n기존 조인트를 삭제하고 새 조인트로 바꾸시겠습니까?",
+    "joint_replace_cancelled": "조인트 교체가 취소되었습니다.",
     "panel_missing": "Fusion 조립 패널을 찾을 수 없습니다."
   },
   "pl": {
@@ -341,6 +355,8 @@
     "anim_failed": "Animacja FitMe nie powiodła się:\n{details}",
     "joint_geometry_failed": "Tworzenie geometrii połączenia FitMe nie powiodło się:\n{details}",
     "interference_failed": "Sprawdzanie kolizji FitMe nie powiodło się:\n{details}",
+    "joint_exists_confirm": "Wybrane części są już połączone:\n{names}\n\nUsunąć istniejące połączenia i zastąpić je nowym połączeniem?",
+    "joint_replace_cancelled": "Anulowano zastąpienie połączenia.",
     "panel_missing": "Nie znaleziono panelu Złożenie programu Fusion."
   },
   "pt-BR": {
@@ -384,6 +400,8 @@
     "anim_failed": "Falha na animação do FitMe:\n{details}",
     "joint_geometry_failed": "Falha ao criar a geometria da junta do FitMe:\n{details}",
     "interference_failed": "Falha na verificação de interferência do FitMe:\n{details}",
+    "joint_exists_confirm": "As peças selecionadas já estão unidas:\n{names}\n\nExcluir as junções existentes e substituí-las pela nova junção?",
+    "joint_replace_cancelled": "A substituição da junção foi cancelada.",
     "panel_missing": "O painel Montar do Fusion não foi encontrado."
   },
   "zh-CN": {
@@ -427,6 +445,8 @@
     "anim_failed": "FitMe 动画失败:\n{details}",
     "joint_geometry_failed": "FitMe 联接几何图形创建失败:\n{details}",
     "interference_failed": "FitMe 干涉检查失败:\n{details}",
+    "joint_exists_confirm": "所选零件之间已存在联接:\n{names}\n\n是否删除现有联接并替换为新联接？",
+    "joint_replace_cancelled": "已取消联接替换。",
     "panel_missing": "未找到 Fusion 装配面板。"
   },
   "zh-TW": {
@@ -470,6 +490,8 @@
     "anim_failed": "FitMe 動畫失敗:\n{details}",
     "joint_geometry_failed": "FitMe 接頭幾何圖形建立失敗:\n{details}",
     "interference_failed": "FitMe 干涉檢查失敗:\n{details}",
+    "joint_exists_confirm": "所選零件之間已存在接頭:\n{names}\n\n是否刪除現有接頭並以新接頭取代？",
+    "joint_replace_cancelled": "已取消接頭取代。",
     "panel_missing": "找不到 Fusion 組合面板。"
   },
   "cs": {
@@ -513,6 +535,8 @@
     "anim_failed": "Animace FitMe selhala:\n{details}",
     "joint_geometry_failed": "Vytvoření geometrie kloubu FitMe selhalo:\n{details}",
     "interference_failed": "Kontrola kolizí FitMe selhala:\n{details}",
+    "joint_exists_confirm": "Vybrané díly jsou již spojeny:\n{names}\n\nOdstranit stávající spoje a nahradit je novým spojem?",
+    "joint_replace_cancelled": "Nahrazení spoje bylo zrušeno.",
     "panel_missing": "Panel Sestavit aplikace Fusion nebyl nalezen."
   },
   "hu": {
@@ -556,6 +580,8 @@
     "anim_failed": "A FitMe animáció sikertelen:\n{details}",
     "joint_geometry_failed": "A FitMe csuklógeometria létrehozása sikertelen:\n{details}",
     "interference_failed": "A FitMe ütközésvizsgálat sikertelen:\n{details}",
+    "joint_exists_confirm": "A kijelölt alkatrészek már össze vannak kapcsolva:\n{names}\n\nTörli a meglévő kapcsolatokat, és lecseréli őket az új kapcsolatra?",
+    "joint_replace_cancelled": "A kapcsolat cseréje megszakítva.",
     "panel_missing": "A Fusion Összeállítás panel nem található."
   },
   "ru": {
@@ -599,6 +625,8 @@
     "anim_failed": "Ошибка анимации FitMe:\n{details}",
     "joint_geometry_failed": "Ошибка создания геометрии соединения FitMe:\n{details}",
     "interference_failed": "Ошибка проверки пересечений FitMe:\n{details}",
+    "joint_exists_confirm": "Выбранные детали уже соединены:\n{names}\n\nУдалить существующие соединения и заменить их новым соединением?",
+    "joint_replace_cancelled": "Замена соединения отменена.",
     "panel_missing": "Панель «Сборка» Fusion не найдена."
   },
   "tr": {
@@ -642,6 +670,8 @@
     "anim_failed": "FitMe animasyonu başarısız:\n{details}",
     "joint_geometry_failed": "FitMe birleşim geometrisi oluşturulamadı:\n{details}",
     "interference_failed": "FitMe çakışma denetimi başarısız:\n{details}",
+    "joint_exists_confirm": "Seçilen parçalar zaten birleştirilmiş:\n{names}\n\nMevcut birleşimler silinip yeni birleşimle değiştirilsin mi?",
+    "joint_replace_cancelled": "Birleşim değiştirme iptal edildi.",
     "panel_missing": "Fusion Montaj paneli bulunamadı."
   }
 }

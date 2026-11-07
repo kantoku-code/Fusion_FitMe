@@ -401,11 +401,35 @@ class MyExecuteHandler(core.CommandEventHandler):
             geo = create_joint_geometry(cand)
 
             root: fusion.Component = des.rootComponent
-            jointIpt: fusion.AsBuiltJointInput = root.asBuiltJoints.createInput(
-                occA, occB, geo
-            )
-            set_joint_motion(jointIpt, cand, geo is not None)
-            root.asBuiltJoints.add(jointIpt)
+
+            def add_joint():
+                jointIpt: fusion.AsBuiltJointInput = root.asBuiltJoints.createInput(
+                    occA, occB, geo
+                )
+                set_joint_motion(jointIpt, cand, geo is not None)
+                root.asBuiltJoints.add(jointIpt)
+
+            try:
+                add_joint()
+            except RuntimeError:
+                # 既存のジョイントと重複する場合は置き換えるか確認する
+                joints = get_joints_between(occA, occB)
+                if not joints:
+                    raise
+                names = "\n".join("- " + j.name for j in joints)
+                res = _ui.messageBox(
+                    tr("joint_exists_confirm", names=names),
+                    "FitMe",
+                    core.MessageBoxButtonTypes.YesNoButtonType,
+                    core.MessageBoxIconTypes.QuestionIconType,
+                )
+                if res != core.DialogResults.DialogYes:
+                    args.executeFailed = True
+                    args.executeFailedMessage = tr("joint_replace_cancelled")
+                    return
+                for j in joints:
+                    j.deleteMe()
+                add_joint()
 
         except:
             _ui.messageBox(tr("failed", details=traceback.format_exc()))
@@ -461,6 +485,20 @@ def get_selected_occurrence(inputs: core.CommandInputs, id: str) -> fusion.Occur
     if sel.selectionCount < 1:
         return None
     return fusion.Occurrence.cast(sel.selection(0).entity)
+
+
+def get_joints_between(occA: fusion.Occurrence, occB: fusion.Occurrence) -> list:
+    # A-B間を直接つなぐジョイント (Joint / AsBuiltJoint)
+    pair = {occA.fullPathName, occB.fullPathName}
+    result = []
+    for joints in (occB.joints, occB.asBuiltJoints):
+        for j in joints:
+            o1, o2 = j.occurrenceOne, j.occurrenceTwo
+            if not o1 or not o2:
+                continue
+            if {o1.fullPathName, o2.fullPathName} == pair:
+                result.append(j)
+    return result
 
 
 def load_settings() -> dict:
