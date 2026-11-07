@@ -643,7 +643,7 @@ def animate_occurrence(
 
 
 def start_anim_timer():
-    global _customEvent, _stopFlag
+    global _customEvent, _stopFlag, _tickBusy
     try:
         _app.unregisterCustomEvent(ANIM_EVENT_ID)
     except:
@@ -653,6 +653,8 @@ def start_anim_timer():
     _customEvent.add(onTick)
     _handlers.append(onTick)
 
+    # 前回のコマンド終了時に未処理のイベントが破棄されると True のまま残る為、リセットする
+    _tickBusy = False
     _stopFlag = threading.Event()
     AnimThread(_stopFlag).start()
 
