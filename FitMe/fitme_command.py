@@ -246,7 +246,7 @@ class MyCommandCreatedHandler(core.CommandCreatedEventHandler):
             selB.setSelectionLimits(1, 1)
 
             tblCand: core.TableCommandInput = inputs.addTableCommandInput(
-                "tblCand", tr("candidates_label"), 4, "1:2:2:8"
+                "tblCand", tr("candidates_label"), 4, "2:2:2:8"
             )
             tblCand.maximumVisibleRows = 15
             tblCand.minimumVisibleRows = 5
