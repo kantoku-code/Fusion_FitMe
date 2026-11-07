@@ -2,6 +2,9 @@
   "en": {
     "button_name": "FitMe",
     "button_description": "Find assembly candidates between two components and create a joint",
+    "mode_label": "Mode",
+    "mode_joint": "Joint",
+    "mode_move": "Move only",
     "fixed_label": "Fixed",
     "fixed_prompt": "Select the fixed component",
     "moving_label": "Moving",
@@ -42,6 +45,9 @@
   "ja": {
     "button_name": "FitMe",
     "button_description": "2つのコンポーネントの組付け候補を表示し、ジョイントを作成します",
+    "mode_label": "モード",
+    "mode_joint": "ジョイント",
+    "mode_move": "移動のみ",
     "fixed_label": "固定側",
     "fixed_prompt": "固定側のコンポーネントを選択",
     "moving_label": "移動側",

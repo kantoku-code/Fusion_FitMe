@@ -3,11 +3,13 @@
 
 import bisect
 import itertools
+import json
 import math
 import re
 import threading
 import time
 import traceback
+from pathlib import Path
 
 import adsk
 import adsk.core as core
@@ -33,6 +35,7 @@ BALL_ANG = math.radians(20)  # ボールジョイントの首振り角
 TOL_CONTACT = 0.01  # 平面接触の判定で押し込む量 (cm)
 TOL_CONE_ANG = math.radians(0.1)  # 円錐の半角の許容値
 MAX_PER_TYPE = 30  # 穴以外の条件毎の候補数の上限
+SETTINGS_PATH = Path(__file__).resolve().parent / "resources" / "settings.json"
 
 # ジョイントタイプ → messages.json のキー
 JOINT_NAMES = {
@@ -233,6 +236,15 @@ class MyCommandCreatedHandler(core.CommandCreatedEventHandler):
             cmd.validateInputs.add(onValidateInputs)
             _handlers.append(onValidateInputs)
 
+            ddMode: core.DropDownCommandInput = inputs.addDropDownCommandInput(
+                "ddMode", tr("mode_label"), core.DropDownStyles.TextListDropDownStyle
+            )
+            # 前回の設定を読み込む
+            settings = load_settings()
+            modeIdx = 1 if settings.get("mode") == 1 else 0
+            ddMode.listItems.add(tr("mode_joint"), modeIdx == 0)
+            ddMode.listItems.add(tr("mode_move"), modeIdx == 1)
+
             selA: core.SelectionCommandInput = inputs.addSelectionInput(
                 "selA", tr("fixed_label"), tr("fixed_prompt")
             )
@@ -251,7 +263,9 @@ class MyCommandCreatedHandler(core.CommandCreatedEventHandler):
             tblCand.maximumVisibleRows = 15
             tblCand.minimumVisibleRows = 5
 
-            inputs.addBoolValueInput("chkAnim", tr("anim_label"), True, "", False)
+            inputs.addBoolValueInput(
+                "chkAnim", tr("anim_label"), True, "", settings.get("anim") is True
+            )
 
             inputs.addTextBoxCommandInput(
                 "txtInfo", tr("info_label"), tr("select_both"), 3, True
@@ -271,13 +285,17 @@ class MyInputChangedHandler(core.InputChangedEventHandler):
     def notify(self, args: core.InputChangedEventArgs):
         try:
             # 行クリックではイベントが出ない為、行のボタンで選択する
-            m = re.match(r"cand_\d+_(\d+)_0$", args.input.id)
+            m = re.match(r"cand_\d+_(\d+)_\d+$", args.input.id)
             if m:
                 tbl: core.TableCommandInput = args.inputs.itemById("tblCand")
                 tbl.selectedRow = int(m.group(1))
                 return
 
+            if args.input.id == "ddMode":
+                save_settings(args.inputs)
+
             if args.input.id == "chkAnim":
+                save_settings(args.inputs)
                 if not args.input.value:
                     stop_joint_anim()
                 return
@@ -375,6 +393,11 @@ class MyExecuteHandler(core.CommandEventHandler):
             if des.snapshots.hasPendingSnapshot:
                 des.snapshots.add()
 
+            # 移動のみモードは位置のキャプチャまでで終了
+            ddMode: core.DropDownCommandInput = inputs.itemById("ddMode")
+            if ddMode.selectedItem.index == 1:
+                return
+
             geo = create_joint_geometry(cand)
 
             root: fusion.Component = des.rootComponent
@@ -440,6 +463,29 @@ def get_selected_occurrence(inputs: core.CommandInputs, id: str) -> fusion.Occur
     return fusion.Occurrence.cast(sel.selection(0).entity)
 
 
+def load_settings() -> dict:
+    # ファイルが無い/壊れている場合は空(既定値を使う)
+    try:
+        with SETTINGS_PATH.open(encoding="utf-8") as f:
+            data = json.load(f)
+        return data if isinstance(data, dict) else {}
+    except Exception:
+        return {}
+
+
+def save_settings(inputs: core.CommandInputs):
+    ddMode: core.DropDownCommandInput = inputs.itemById("ddMode")
+    chkAnim: core.BoolValueCommandInput = inputs.itemById("chkAnim")
+    if not ddMode or not chkAnim or not ddMode.selectedItem:
+        return
+    data = {"mode": ddMode.selectedItem.index, "anim": chkAnim.value}
+    try:
+        with SETTINGS_PATH.open("w", encoding="utf-8") as f:
+            json.dump(data, f, indent=2)
+    except Exception:
+        core.Application.get().log(traceback.format_exc())
+
+
 def get_selected_candidate(inputs: core.CommandInputs) -> Candidate:
     tbl: core.TableCommandInput = inputs.itemById("tblCand")
     if not tbl:
@@ -454,12 +500,9 @@ def add_table_row(tbl: core.TableCommandInput, row: int, texts):
     # 行を作り直す度に別IDにする
     for col, txt in enumerate(texts):
         id = "cand_{}_{}_{}".format(_tableGen, row, col)
-        if col == 0:
-            # 1列目は行選択用のボタン
-            ipt = tbl.commandInputs.addBoolValueInput(id, "", False, "", False)
-            ipt.text = txt
-        else:
-            ipt = tbl.commandInputs.addTextBoxCommandInput(id, "", txt, 1, True)
+        # 全列を行選択用のボタンにする(行のどこをクリックしても選択できるように)
+        ipt = tbl.commandInputs.addBoolValueInput(id, "", False, "", False)
+        ipt.text = txt
         tbl.addCommandInput(ipt, row, col)
 
 

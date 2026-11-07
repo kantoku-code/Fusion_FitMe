@@ -353,3 +353,6 @@ dmypy.json
 temp/
 packages/
 .ruff_cache/
+
+# FitMe user settings
+FitMe/resources/settings.json

@@ -20,10 +20,11 @@ To uninstall, delete the copied "FitMe" folder.
 ## Usage
 
 1. Open a design and run **FitMe** from the "SOLID" tab → "ASSEMBLE" panel.
-2. Select the **Fixed** component, then the **Moving** component.
-3. Candidates are listed with a score, joint type, and description. Click the button at the left of a row to preview it.
-4. Turn on **Joint animation** to see the motion of the joint (revolute, slider, etc.).
-5. Click **OK** to move the component and create an As-built Joint.
+2. Choose the **Mode**: **Joint** (default) or **Move only**.
+3. Select the **Fixed** component, then the **Moving** component.
+4. Candidates are listed with a score, joint type, and description. Click the button at the left of a row to preview it.
+5. Turn on **Joint animation** to see the motion of the joint (revolute, slider, etc.).
+6. Click **OK** to move the component. In **Joint** mode, an As-built Joint is also created. In **Move only** mode, the position is captured without a joint.
 
 ### Detected features
 
@@ -50,7 +51,8 @@ Candidates that cause interference are excluded.
 ### 使い方
 
 1. 「ソリッド」タブ →「組み立て」パネルの **FitMe** を実行します。
-2. **固定側**、**移動側** のコンポーネントを選択します。
-3. 候補がスコア・ジョイントタイプ・説明とともに一覧表示されます。行の左端のボタンで候補を選ぶとプレビューされます。
-4. **ジョイントアニメーション** をONにすると、ジョイントの動き(回転・スライダ等)を確認できます。
-5. **OK** で移動側を配置し、As-built ジョイントを作成します。
+2. **モード** を選択します。**ジョイント**(デフォルト)または **移動のみ**。
+3. **固定側**、**移動側** のコンポーネントを選択します。
+4. 候補がスコア・ジョイントタイプ・説明とともに一覧表示されます。行の左端のボタンで候補を選ぶとプレビューされます。
+5. **ジョイントアニメーション** をONにすると、ジョイントの動き(回転・スライダ等)を確認できます。
+6. **OK** で移動側を配置します。**ジョイント** モードでは As-built ジョイントも作成し、**移動のみ** モードではジョイントを作らず位置をキャプチャします。
