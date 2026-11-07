@@ -501,6 +501,38 @@ def get_joints_between(occA: fusion.Occurrence, occB: fusion.Occurrence) -> list
     return result
 
 
+def get_obstacle_occurrences(occA: fusion.Occurrence, occB: fusion.Occurrence) -> list:
+    # 位置が確定している部品 (ジョイント/剛性グループ/固定) を干渉チェックの障害物とする
+    # A・B自身とその祖先/子孫は除く
+    def is_related(p, q):
+        return p == q or p.startswith(q + "+") or q.startswith(p + "+")
+
+    des: fusion.Design = fusion.Design.cast(_app.activeProduct)
+    exclude = (occA.fullPathName, occB.fullPathName)
+    occs = []
+    for occ in des.rootComponent.allOccurrences:
+        path = occ.fullPathName
+        if any(is_related(path, e) for e in exclude):
+            continue
+        if (
+            occ.isGrounded
+            or occ.joints.count > 0
+            or occ.asBuiltJoints.count > 0
+            or occ.rigidGroups.count > 0
+        ):
+            occs.append(occ)
+
+    # get_bodies は子を含む為、祖先が含まれる子孫は除く(浅い順に判定)
+    occs.sort(key=lambda o: o.fullPathName.count("+"))
+    result = []
+    for occ in occs:
+        path = occ.fullPathName
+        if any(path.startswith(r.fullPathName + "+") for r in result):
+            continue
+        result.append(occ)
+    return result
+
+
 def load_settings() -> dict:
     # ファイルが無い/壊れている場合は空(既定値を使う)
     try:
@@ -580,8 +612,12 @@ def update_candidates(inputs: core.CommandInputs):
     # 干渉チェック用の一時ボディ(移動側はOccurrence内の座標)
     tmpA = get_temp_bodies(occA)
     tmpB = get_temp_bodies(occB, invB)
+    # 位置が確定している他の部品(ワールド座標)
+    tmpObs = [
+        b for o in get_obstacle_occurrences(occA, occB) for b in get_temp_bodies(o)
+    ]
 
-    cands, excluded = search_candidates(featsA, featsB, worldB, tmpA, tmpB)
+    cands, excluded = search_candidates(featsA, featsB, worldB, tmpA, tmpB, tmpObs)
     _cands.extend(cands)
 
     _origMat = worldB.copy()
@@ -1357,7 +1393,9 @@ def get_cone_compat(fa: HoleFeat, fb: HoleFeat):
     )
 
 
-def search_candidates(pa: PartFeats, pb: PartFeats, worldB: core.Matrix3D, tmpA, tmpB):
+def search_candidates(
+    pa: PartFeats, pb: PartFeats, worldB: core.Matrix3D, tmpA, tmpB, tmpObs
+):
     featsA, featsB = pa.holes, pb.holes
     cands = gen_hole_candidates(featsA, featsB, worldB)
     cands.extend(limit_cands(gen_sphere_candidates(pa.spheres, pb.spheres, worldB)))
@@ -1380,6 +1418,10 @@ def search_candidates(pa: PartFeats, pb: PartFeats, worldB: core.Matrix3D, tmpA,
         if len(result) >= MAX_CANDIDATES:
             break
         if is_interfering(c.mat, tmpA, tmpB, featsA, featsB, c.matched):
+            excluded += 1
+            continue
+        # 位置が確定している他の部品との干渉 (軸×穴の許容はしない)
+        if is_interfering(c.mat, tmpObs, tmpB, [], [], []):
             excluded += 1
             continue
         if c.jointType is None:
